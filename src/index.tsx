@@ -13,9 +13,6 @@ const theme = createTheme({
     },
   },
   typography: {
-    subtitle1: {
-      fontSize: "bold"
-    },
     subtitle2: {
       fontWeight: 700,
     },
