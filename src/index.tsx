@@ -13,16 +13,36 @@ const theme = createTheme({
     },
   },
   typography: {
+    h1: {
+      fontSize: "3rem",
+      fontWeight: "bold"
+    },
+    h2: {
+      fontSize: "2rem",
+      fontWeight: "bold"
+    },
+    h3: {
+      fontSize: "1.5rem",
+      fontWeight: 700
+    },
+    h4: {
+      fontSize: "1.25rem",
+      fontWeight: 700
+    },
+    subtitle1: {
+      fontWeight: 700,
+      textTransform: "uppercase",
+      fontSize: "1.2rem"
+    },
     subtitle2: {
       fontWeight: 700,
+      fontSize: "1rem"
+    },
+    body1: {
+      
     },
     body2: {
       color: "rgb(99, 115, 129)"
-    },
-    h4: {
-      color: "white",
-      fontSize: "1.25rem",
-      fontWeight: 700
     }
   },
   components: {
@@ -55,6 +75,13 @@ const theme = createTheme({
         root: {
           borderRadius: 16,
           boxShadow: "rgb(145 158 171 / 20%) 0px 0px 2px 0px, rgb(145 158 171 / 12%) 0px 12px 24px -4px"
+        }
+      }
+    },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          textDecoration: "none"
         }
       }
     }

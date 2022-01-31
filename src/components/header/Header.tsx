@@ -8,7 +8,7 @@ import UserNotifacations from "../popups/UserNotifacations";
 export const Header = () => {
     const { user } = useContext(AccountContext);
     return (
-        <Box sx={{
+        <Box component="header" sx={{
             width: "100%",
             p: 1,
             position: "fixed",
@@ -23,7 +23,7 @@ export const Header = () => {
                     }}
                     src="https://www.sberbank.com/common/img/uploaded/_new_site/com/bnr/investor_day.png"
                 />
-
+                <Typography p={1} variant="h3">СБЕР актив</Typography>
                 <Stack
                     direction="row"
                     alignItems="center"
