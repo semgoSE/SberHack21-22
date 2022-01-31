@@ -4,6 +4,8 @@ import App from './App';
 import { AccountState } from './context/Account';
 import { createTheme, ThemeProvider } from '@mui/material';
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "./index.css";
 
 const theme = createTheme({

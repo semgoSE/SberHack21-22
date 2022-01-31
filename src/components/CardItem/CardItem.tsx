@@ -1,25 +1,34 @@
 import React from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Paper, Typography } from "@mui/material";
+import Slider from "react-slick";
+import { useNavigate } from "react-router-dom";
 
-export const CardItem = () => {
+const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+};
+
+export const CardItem = ({ isProfile = false }) => {
+
+    const nav = useNavigate();
+
     return (
-        <Box
+        <Paper
             sx={{
                 display: 'flex',
-                flexDirection: { xs: 'column' },
+                flexDirection: { xs: 'row', md: "column" },
                 alignItems: 'center',
-                bgcolor: 'background.paper',
                 overflow: 'hidden',
-                borderRadius: '25px',
-                boxShadow: 1,
                 fontWeight: 'bold',
-                maxWidth: 300,
             }}
         >
             <Box
                 component="img"
                 sx={{
-                    width: "100%",
+                    maxWidth: 400,
                     borderTopLeftRadius: 25,
                     borderTopRightRadius: 25,
                 }}
@@ -40,9 +49,10 @@ export const CardItem = () => {
                     $280,000
                 </Typography>
             </Box>
-            <Box component="div" mb={1}>
-                <Button>Подробнее</Button>
+            <Box component="div" p={2} sx={{ display: 'flex', flexDirection: { xs: 'column', md: "row" }, }}>
+                <Button variant="contained">{isProfile ? "Продать" : "Купить"}</Button>
+                <Button sx={{ marginLeft: 2 }} onClick={() => nav("/item")}>Подробнее</Button>
             </Box>
-        </Box>
+        </Paper>
     );
 }

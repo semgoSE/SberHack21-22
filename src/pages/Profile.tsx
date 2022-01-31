@@ -5,6 +5,7 @@ import { AccountContext } from "../context/Account";
 import { WalletCard } from "../components/profile/wallet-card/WalletCard";
 import { Transaction } from "../components/profile/transaction/Transaction";
 import { UserCard } from "../components/profile/user-card/UserCard";
+import { CardItem } from "../components/CardItem/CardItem";
 
 
 export const Profile = () => {
@@ -44,19 +45,10 @@ export const Profile = () => {
                 </Grid>
             </Box >
             <Typography pl={4} variant="h2">Ваши активы</Typography>
-            <Box p={4}>
-                <Grid container spacing={4}>
-                    <Grid item>
-                        <Paper>
-                            <Box component="img" src="" sx={{ borderTopRightRadius: 16, borderTopLeftRadius: 16 }} />
-                            <Typography>Ntrcn</Typography>
-                            <Box>
-                                <Button>Подробнее</Button>
-                                <Button variant="contained">Выставить на продажу</Button>
-                            </Box>
-                        </Paper>
-                    </Grid>
-                </Grid>
+            <Box p={4} sx={{ display: "flex", maxWidth: 600 }}>
+                <List>
+                    <CardItem isProfile={true} />
+                </List>
             </Box>
         </Box >
     );
