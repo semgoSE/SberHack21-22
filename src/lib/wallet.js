@@ -231,4 +231,5 @@ export class Wallet {
     })
     return sbc_list
   }
+
 }

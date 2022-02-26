@@ -5,6 +5,8 @@ import { AccountContext } from "../../../context/Account";
 
 export const WalletCard = () => {
     const { wallet } = useContext(AccountContext);
+    console.log(wallet);
+    
     return (
         <Paper>
             <Box
