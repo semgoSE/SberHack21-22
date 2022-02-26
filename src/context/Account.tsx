@@ -15,7 +15,8 @@ interface Wallet {
 interface AccountContext {
     user: User | null,
     wallet: Wallet | null,
-    setUser: (account: User) => void
+    setUser: (account: User) => void,
+    setWallet: (wallet: Wallet) => void,
 }
 
 export const AccountContext = createContext<AccountContext>({
@@ -24,7 +25,8 @@ export const AccountContext = createContext<AccountContext>({
         tokens: [],
         coins: []
     },
-    setUser: () => {}
+    setUser: () => {},
+    setWallet: () => {}
 });
 
 interface AccountStateProps {
@@ -39,7 +41,8 @@ export const AccountState = ({ children }: AccountStateProps) => {
     const value: AccountContext = {
         user,
         wallet,
-        setUser
+        setUser,
+        setWallet,
     }
 
     return(
