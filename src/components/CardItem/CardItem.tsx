@@ -52,11 +52,22 @@ export const CardItem = (props: CardItemProps) => {
         }}
       >
         <Typography align="center" component="span" sx={{ fontSize: 22 }}>
-          {props.address}
+          ({props.num}/{props.count}) {props.address}
         </Typography>
         <Typography align="center" component="span" sx={{ fontSize: 18 }}>
           {props.price} SBC
         </Typography>
+        {!props.isProfile && (
+          <>
+            <Typography align="center" component="span" sx={{ fontSize: 18 }}>
+              KNumber: {props.knubmer}
+            </Typography>
+
+            <Typography align="center" component="span" sx={{ fontSize: 12 }}>
+              ID offer: {props.idOffer}
+            </Typography>
+          </>
+        )}
       </Box>
       <Box
         component="div"
