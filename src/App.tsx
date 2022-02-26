@@ -7,7 +7,7 @@ import { Item } from './pages/Item';
 import { Login } from './pages/Login';
 import { Market } from './pages/Market';
 import { Profile } from './pages/Profile';
-import { Registration } from './pages/Registration';
+import { Registration } from './pages/Registration'
 
 function App() {
   const { user, wallet } = useContext(AccountContext);

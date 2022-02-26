@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -31,6 +31,7 @@ export const Login = () => {
       email: (user!.firebase_user! as any).email,
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6eHLrN_K81ZtgrAWkRVH9JHB_ZXz40gi3Dg&usqp=CAU",
+      cls: user,
     });
     setWallet({
       tokens: await (user.wallet as any).get_objc_list(),

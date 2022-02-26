@@ -5,6 +5,7 @@ interface User {
     email: string
     name: string
     image: string
+    cls: any
 }
 
 interface Wallet {

@@ -5,7 +5,7 @@ import {
   CNFTCrypto,
   TokenFieldValue,
   TokenDescription,
-} from "../wallet-lib/wallet-lib.js";
+} from "./wallet-lib.js";
 
 const GATE_URL = "http://37.18.107.81:8981";
 
@@ -43,16 +43,19 @@ export async function listOffers(supplier) {
   try {
     const offers = await supplier.wallet.sbw.listOffers;
     let lOffers = [];
+    console.log(offers);
     offers.map((offer, i) => {
-      let oOffer = {
-        id: offer.offer.id,
-        objc_content: [],
-        sbc: offer.offer.demand.content[0].value,
-      };
-      offer.offer.supply.content.map((content) => {
-        oOffer["objc_content"].push(content.value);
-      });
-      lOffers.push(oOffer);
+      if (offer.offer.supply.tokenType == supplier.wallet.objc_type) {
+        let oOffer = {
+          id: offer.offer.id,
+          objc_content: [],
+          sbc: offer.offer.demand.content[0].value,
+        };
+        offer.offer.supply.content.map((content) => {
+          oOffer["objc_content"].push(content.value);
+        });
+        lOffers.push(oOffer);
+      }
     });
     console.log("MARKET: List offers success", lOffers);
     return lOffers;
@@ -60,6 +63,7 @@ export async function listOffers(supplier) {
     console.error("MARKET: List offers error", error);
   }
 }
+
 
 export async function applyOffer(supplier, offer, token) {
   try {

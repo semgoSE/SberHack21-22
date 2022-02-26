@@ -47,7 +47,7 @@ export const Profile = () => {
             <Typography pl={4} variant="h2">Ваши активы</Typography>
             <Box p={4} sx={{ display: "flex", maxWidth: 600 }}>
                 <List>
-                    <CardItem isProfile={true} />
+                    {/* <CardItem isProfile={true} /> */}
                 </List>
             </Box>
         </Box >
