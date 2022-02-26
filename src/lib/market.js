@@ -45,6 +45,8 @@ export async function listOffers(supplier) {
     let lOffers = [];
     console.log(offers);
     offers.map((offer, i) => {
+      console.log("OBJC TYPE:",supplier.wallet.objc_type);
+      console.log("OFFER TOKEN TYPE:",offer.offer.supply.tokenType);
       if (offer.offer.supply.tokenType == supplier.wallet.objc_type) {
         let oOffer = {
           id: offer.offer.id,

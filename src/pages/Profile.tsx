@@ -11,6 +11,16 @@ import { CardItem } from "../components/CardItem/CardItem";
 export const Profile = () => {
 
     const { user } = useContext(AccountContext);
+    const [ sbcList, setSbcList ] = useState(null);
+    
+    useEffect(()=>{
+        const getBalance = async () => {
+            const sbcL = await user?.cls.wallet.get_sbc_list()
+            setSbcList(sbcL)
+            console.log(sbcList);
+        }
+        getBalance();
+    },[])
 
     return (
         <Box component="main" sx={{ height: "100vh" }}>

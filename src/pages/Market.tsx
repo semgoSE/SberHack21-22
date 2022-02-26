@@ -24,10 +24,9 @@ export const Market = () => {
     const getOffers = async () => {
       const lOffers = await listOffers(user?.cls);
       setOffers(lOffers);
-      console.log(offers);
     };
-    getOffers();
-  }, []);
+    setInterval(getOffers, 5000);
+  },[]);
 
   return (
     <Grid component="main" sx={{ height: "100vh" }}>
