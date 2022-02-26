@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AccountContext } from "./context/Account";
-import { Item } from "./pages/Item";
-import { Login } from "./pages/Login";
-import { Market } from "./pages/Market";
-import { Profile } from "./pages/Profile";
-import { Registration } from "./pages/Registration";
+import { CssBaseline } from '@mui/material';
+import React, { useContext } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Header } from './components/header';
+import { AccountContext } from './context/Account';
+import { Item } from './pages/Item';
+import { Login } from './pages/Login';
+import { Market } from './pages/Market';
+import { Profile } from './pages/Profile';
 
 function App() {
   const { user, wallet } = useContext(AccountContext);
@@ -13,6 +14,7 @@ function App() {
   return (
     <div>
       <Router>
+        <CssBaseline />
         <Routes>
           {user && (
             <>
