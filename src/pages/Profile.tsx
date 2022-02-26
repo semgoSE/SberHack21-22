@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Grid, Box, Paper, Avatar, Typography, List, ListItem, ListItemAvatar, ListItemText, Button, Stack } from "@mui/material";
+import { Grid, Box, Paper, Avatar, Typography, List, ListItem, ListItemAvatar, ListItemText, Button, Stack, TextField } from "@mui/material";
 import { Header } from "../components/header";
 import { AccountContext } from "../context/Account";
 import { WalletCard } from "../components/profile/wallet-card/WalletCard";
@@ -49,6 +49,61 @@ export const Profile = () => {
                 <List>
                     {/* <CardItem isProfile={true} /> */}
                 </List>
+            </Box>
+            <Typography pl={4} variant="h2">Токенезация недвижимости(admin)</Typography>
+            <Box maxWidth={400} p={2}>
+                <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Street"
+                    name="email"
+                    autoComplete="email"
+                    autoFocus
+                // onChange={(event) => {
+                //     setEmail(event.target.value);
+                // }}
+                />
+                <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Area"
+                    type="text"
+                    id="area"
+                    autoComplete="current-password"
+                // onChange={(event) => {
+                //     setPassword(event.target.value);
+                // }}
+                />
+
+                <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="knumber"
+                    label="KNumber"
+                    id="knumber"
+                // onChange={(event) => {
+                //     setPassword(event.target.value);
+                // }}
+                />
+
+                <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="count"
+                    label="Count"
+                    type="number"
+                    id="count"
+                // onChange={(event) => {
+                //     setPassword(event.target.value);
+                // }}
+                />
+                <Button size="large" variant="contained">Создать</Button>
             </Box>
         </Box >
     );

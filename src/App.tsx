@@ -17,15 +17,18 @@ function App() {
       <Router>
         <CssBaseline />
         <Routes>
-          {user && (
+          {!user ?
+            <>
+              <Route path="/registration" element={<Registration />} />
+              <Route path="*" element={<Login />} />
+            </> :
             <>
               <Route path="/" element={<Market />} />
               <Route path="/item" element={<Item />} />
               <Route path="/myprofile" element={<Profile />} />
             </>
-          )}
-          <Route path="/registration" element={<Registration />} />
-          <Route path="*" element={<Login />} />
+          }
+
         </Routes>
       </Router>
     </div>

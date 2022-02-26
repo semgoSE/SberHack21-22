@@ -17,25 +17,25 @@ export const Item = () => {
                     </Box>
                     <Typography variant="body1" p={1} pt={2}>teststewtsyudgsahfj;osfagbhsj</Typography>
                 </div>
-                <Grid container>
-                    <Grid item>
-                        <Box pt={8}>
-                            <UserColumn />
+                <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 16
+                }}>
+                    <Box pt={8}>
+                        <UserColumn />
+                    </Box>
+                    <Paper>
+                        <Box p={2}>
+                            <Typography color={"black"} variant="h4">Последние транзакции</Typography>
+                            <List>
+                                <Transaction />
+                                <Transaction />
+                            </List>
+                            <Button variant="text">Показать все</Button>
                         </Box>
-                    </Grid>
-                    <Grid item>
-                        <Paper>
-                            <Box p={2}>
-                                <Typography color={"black"} variant="h4">Последние транзакции</Typography>
-                                <List>
-                                    <Transaction />
-                                    <Transaction />
-                                </List>
-                                <Button variant="text">Показать все</Button>
-                            </Box>
-                        </Paper>
-                    </Grid>
-                </Grid>
+                    </Paper>
+                </div>
             </Stack>
         </Box>
     );
