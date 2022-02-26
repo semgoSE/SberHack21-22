@@ -1,11 +1,14 @@
 import { Box, Button, Link, Paper, Stack, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AccountContext } from "../../../context/Account";
 
 export const WalletCard = () => {
     const { wallet } = useContext(AccountContext);
-    console.log(wallet);
+    
+    useEffect(()=>{
+        console.log(wallet);
+    },[])
     
     return (
         <Paper>

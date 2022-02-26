@@ -156,7 +156,7 @@ export class Wallet {
   }
 
   async export() {
-    this.sbw.stopListenBlocks();
+    // this.sbw.stopListenBlocks();
     try {
       const walletExportData = await this.sbw.exportData;
       const walletExportObj = JSON.parse(walletExportData);
