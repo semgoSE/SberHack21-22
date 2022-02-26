@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AccountContext } from '../context/Account';
+import { Link as URLLink } from 'react-router-dom'
 
 export const Login = () => {
 
@@ -102,7 +103,7 @@ export const Login = () => {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/registration" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
