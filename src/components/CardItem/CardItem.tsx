@@ -77,7 +77,7 @@ export const CardItem = (props: CardItemProps) => {
         <Button variant="contained">
           {props.isProfile ? "Продать" : "Купить"}
         </Button>
-        {props.isProfile && <Button color="error">Уничтожить</Button>}
+        {props.isProfile && <Button variant="contained" color="error">Уничтожить</Button>}
         <Button sx={{ marginLeft: 2 }} onClick={() => nav("/item")}>
           Подробнее
         </Button>
