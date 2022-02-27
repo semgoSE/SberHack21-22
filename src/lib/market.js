@@ -43,10 +43,7 @@ export async function listOffers(supplier) {
   try {
     const offers = await supplier.wallet.sbw.listOffers;
     let lOffers = [];
-    console.log(offers);
     offers.map((offer, i) => {
-      console.log("OBJC TYPE:",supplier.wallet.objc_type);
-      console.log("OFFER TOKEN TYPE:",offer.offer.supply.tokenType);
       if (offer.offer.supply.tokenType == supplier.wallet.objc_type) {
         let oOffer = {
           id: offer.offer.id,
@@ -59,7 +56,7 @@ export async function listOffers(supplier) {
         lOffers.push(oOffer);
       }
     });
-    console.log("MARKET: List offers success", lOffers);
+    // console.log("MARKET: List offers success", lOffers);
     return lOffers;
   } catch (error) {
     console.error("MARKET: List offers error", error);

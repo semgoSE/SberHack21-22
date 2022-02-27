@@ -197,6 +197,7 @@ export class Wallet {
   async get_tokens_list() {
     try {
       const listTokens = await this.sbw.listTokens;
+      // console.log("WALLET: get token list", listTokens);
       return listTokens;
     } catch (error) {
       console.error("WALLET: error get token list", error);
