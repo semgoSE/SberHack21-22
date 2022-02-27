@@ -26,13 +26,13 @@ export const AccountContext = createContext<AccountContext>({
         tokens: [],
         coins: []
     },
-    setUser: () => {},
-    setWallet: () => {}
+    setUser: () => { },
+    setWallet: () => { }
 });
 
 interface AccountStateProps {
     children?: React.ReactNode;
-  }
+}
 
 export const AccountState = ({ children }: AccountStateProps) => {
 
@@ -46,7 +46,24 @@ export const AccountState = ({ children }: AccountStateProps) => {
         setWallet,
     }
 
-    return(
+    useEffect(() => {
+        const session = window.sessionStorage;        
+        if (user) {
+            const userJson = JSON.stringify({ ...user, cls: null });
+            session.setItem("user", userJson);
+        }
+    }, [user]);
+
+    useEffect(() => {
+        const session = window.sessionStorage;
+        const userJson = session.getItem("user");
+        if (userJson) {
+            const user = JSON.parse(userJson);
+            setUser(user);
+        }
+    }, [])
+
+    return (
         <AccountContext.Provider value={value}>
             {children}
         </AccountContext.Provider>

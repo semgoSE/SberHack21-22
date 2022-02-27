@@ -3,6 +3,7 @@ import { Autocomplete, Box, Stack, TextField, Typography, Avatar, Divider, backd
 import { AccountContext } from "../../context/Account";
 import UserMenuPopup from "../popups/UserMenuPopup";
 import UserNotifacations from "../popups/UserNotifacations";
+import { Link } from "react-router-dom";
 
 
 export const Header = () => {
@@ -23,7 +24,9 @@ export const Header = () => {
                     }}
                     src="https://www.sberbank.com/common/img/uploaded/_new_site/com/bnr/investor_day.png"
                 />
-                <Typography p={1} variant="h3">СБЕР актив</Typography>
+               <Link to="/" style={{ textDecoration: 'none', color: "black" }}>
+                    <Typography p={1} variant="h3">СБЕР актив</Typography>
+               </Link>
                 <Stack
                     direction="row"
                     alignItems="center"
