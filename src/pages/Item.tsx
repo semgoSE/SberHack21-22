@@ -8,15 +8,11 @@ export const Item = () => {
         <Box component="main" sx={{ height: "100vh" }}>
             <Header />
             <Stack direction="row" spacing={2}>
-                <div>
+                <Box p={2}>
                     <Typography variant="h1" p={4} pt={8}>Test</Typography>
-                    <Box sx={{ display: "flex" }}>
-                        <Paper>
-                            <Box component="img" src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2" />
-                        </Paper>
-                    </Box>
+                    <Box component="img" src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2" />
                     <Typography variant="body1" p={1} pt={2}>teststewtsyudgsahfj;osfagbhsj</Typography>
-                </div>
+                </Box>
                 <div style={{
                     display: "flex",
                     flexDirection: "column",
