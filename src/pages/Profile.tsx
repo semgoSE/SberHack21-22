@@ -11,18 +11,18 @@ import { CardItem } from "../components/CardItem/CardItem";
 export const Profile = () => {
 
     const { user } = useContext(AccountContext);
-    const [ objcList, setObjcList ] = useState([])
+    const [objcList, setObjcList] = useState([])
 
-    useEffect(()=>{
+    useEffect(() => {
         const getObjcList = async () => {
             console.log(user);
-            
+
             // const oList = await user?.cls.wallet.get_objc_list();
             // setObjcList(oList);
             // console.log(objcList);
         }
         setInterval(getObjcList, 5000);
-    },[])
+    }, [])
     return (
         <Box component="main" sx={{ height: "100vh" }}>
             <Header />
@@ -61,61 +61,63 @@ export const Profile = () => {
                     {/* <CardItem isProfile={true} /> */}
                 </List>
             </Box>
-            <Typography pl={4} variant="h2">Токенезация недвижимости(admin)</Typography>
-            <Box maxWidth={400} p={2}>
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="email"
-                    label="Street"
-                    name="email"
-                    autoComplete="email"
-                    autoFocus
-                // onChange={(event) => {
-                //     setEmail(event.target.value);
-                // }}
-                />
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Area"
-                    type="text"
-                    id="area"
-                    autoComplete="current-password"
-                // onChange={(event) => {
-                //     setPassword(event.target.value);
-                // }}
-                />
+            {user?.name === "bank" && <div>
+                <Typography pl={4} variant="h2">Токенезация недвижимости(admin)</Typography>
+                <Box maxWidth={400} p={2}>
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Street"
+                        name="email"
+                        autoComplete="email"
+                        autoFocus
+                    // onChange={(event) => {
+                    //     setEmail(event.target.value);
+                    // }}
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Area"
+                        type="text"
+                        id="area"
+                        autoComplete="current-password"
+                    // onChange={(event) => {
+                    //     setPassword(event.target.value);
+                    // }}
+                    />
 
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="knumber"
-                    label="KNumber"
-                    id="knumber"
-                // onChange={(event) => {
-                //     setPassword(event.target.value);
-                // }}
-                />
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="knumber"
+                        label="KNumber"
+                        id="knumber"
+                    // onChange={(event) => {
+                    //     setPassword(event.target.value);
+                    // }}
+                    />
 
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="count"
-                    label="Count"
-                    type="number"
-                    id="count"
-                // onChange={(event) => {
-                //     setPassword(event.target.value);
-                // }}
-                />
-                <Button size="large" variant="contained">Создать</Button>
-            </Box>
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="count"
+                        label="Count"
+                        type="number"
+                        id="count"
+                    // onChange={(event) => {
+                    //     setPassword(event.target.value);
+                    // }}
+                    />
+                    <Button size="large" variant="contained">Создать</Button>
+                </Box>
+            </div>}
         </Box >
     );
 }
