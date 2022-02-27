@@ -28,7 +28,7 @@ export const Profile = () => {
                     <Grid item>
                         <WalletCard />
                     </Grid>
-                    <Grid item>
+                    {/* <Grid item>
                         <Paper>
                             <Box
                                 p={2}
@@ -41,7 +41,7 @@ export const Profile = () => {
                                 <Button variant="text">Показать все</Button>
                             </Box>
                         </Paper>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Box >
             <Typography pl={4} variant="h2">Ваши активы</Typography>
