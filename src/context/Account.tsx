@@ -14,14 +14,13 @@ interface Wallet {
 }
 
 interface AccountContext {
-    user: User | null,
-    wallet: Wallet | null,
+    user?: User,
+    wallet?: Wallet,
     setUser: (account: User) => void,
     setWallet: (wallet: Wallet) => void,
 }
 
 export const AccountContext = createContext<AccountContext>({
-    user: null,
     wallet: {
         tokens: [],
         coins: []
@@ -36,8 +35,8 @@ interface AccountStateProps {
 
 export const AccountState = ({ children }: AccountStateProps) => {
 
-    const [user, setUser] = useState<User | null>(null);
-    const [wallet, setWallet] = useState<Wallet | null>(null);
+    const [user, setUser] = useState<User | undefined>();
+    const [wallet, setWallet] = useState<Wallet | undefined>();
 
     const value: AccountContext = {
         user,
@@ -46,22 +45,24 @@ export const AccountState = ({ children }: AccountStateProps) => {
         setWallet,
     }
 
-    useEffect(() => {
-        const session = window.sessionStorage;        
-        if (user) {
-            const userJson = JSON.stringify({ ...user, cls: null });
-            session.setItem("user", userJson);
-        }
-    }, [user]);
+    // useEffect(() => {
+    //     const session = window.sessionStorage;        
+    //     if (user) {
+    //         const userJson = JSON.stringify({ ...user, cls: null });
+    //         session.setItem("user", userJson);
+    //     } else {
+    //         session.setItem("user", "");
+    //     }
+    // }, [user]);
 
-    useEffect(() => {
-        const session = window.sessionStorage;
-        const userJson = session.getItem("user");
-        if (userJson) {
-            const user = JSON.parse(userJson);
-            setUser(user);
-        }
-    }, [])
+    // useEffect(() => {
+    //     const session = window.sessionStorage;
+    //     const userJson = session.getItem("user");
+    //     if (userJson) {
+    //         const user = JSON.parse(userJson);
+    //         setUser(user);
+    //     }
+    // }, []);
 
     return (
         <AccountContext.Provider value={value}>
