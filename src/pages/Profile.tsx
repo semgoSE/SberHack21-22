@@ -12,7 +12,7 @@ export const Profile = () => {
 
     const { user } = useContext(AccountContext);
     const [ objcList, setObjcList ] = useState([])
-
+    
     useEffect(()=>{
         const getObjcList = async () => {
             console.log(user);
