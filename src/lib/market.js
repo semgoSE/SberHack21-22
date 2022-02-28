@@ -11,6 +11,7 @@ const GATE_URL = "http://37.18.107.81:8981";
 
 export async function putOffer(supplier, objc, amount, sbc_type) {
   try {
+    console.log(supplier, objc, amount, sbc_type);
     const objc_description = [
       new TokenFieldValue(0, objc.tokenBody.content[0].toString()),
       new TokenFieldValue(1, objc.tokenBody.content[1].toString()),

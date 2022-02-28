@@ -1,4 +1,4 @@
-import { TokenFieldType, TokenFieldMeta } from "../wallet-lib/wallet-lib.js";
+import { TokenFieldType, TokenFieldMeta } from "./wallet-lib.js";
 import {
   getAuth,
   createUserWithEmailAndPassword,

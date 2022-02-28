@@ -23,13 +23,28 @@ const LISTENER_METHODS = {
     return Promise.resolve(undefined);
   },
 
-  onApplyForOffer(_wallet, requests) {
-    console.log("Got event: onApplyForOffer");
+  async onApplyForOffer(_wallet, requests) {
+    console.log("Got event: onApplyForOffer", requests);
+    let listTokenDemandCandidates = await _wallet.listTokenDemandCandidates(requests[0].message.offerId).then(listTokenDemandCandidates => {
+      console.log(`listTokenDemandCandidates:\n${listTokenDemandCandidates} - OK`)
+      return Promise.resolve(listTokenDemandCandidates)
+    }, reason => {
+      console.log(`listTokenDemandCandidates\n - Fail \nerror message: ${reason}`)
+      return Promise.reject(reason)
+    })
+
+    await _wallet.approveOffer(requests[0].message.offerId, requests[0].message.buyerOrgName, listTokenDemandCandidates[0]).then(v => {
+      console.log(`approveOffer:\n${requests[0].message.offerId} - OK`)
+    }, reason => {
+      console.log(`approveOffer\n - Fail \nerror message: ${reason}`)
+    })
+
     return Promise.resolve(undefined);
   },
 
   onApproveOffer(_wallet, request) {
-    console.log("Got event: onApproveOffer");
+    console.log("Got event: onApproveOffer", request);
+    _wallet.finalizeOffer(request[0].message.offerId)
     return Promise.resolve(undefined);
   },
 
@@ -179,7 +194,7 @@ export class Wallet {
       const gate = CNFT.newGateApi(GATE_URL);
       const store = CNFTStore.localStorage();
       const obj_wallet_ident = JSON.parse(json_wallet)['identity'];
-      const lStorage_ident =  window.localStorage.getItem('Identity_'+obj_wallet_ident)
+      const lStorage_ident = window.localStorage.getItem('Identity_' + obj_wallet_ident)
       if (lStorage_ident) {
         this.id = obj_wallet_ident
       } else {
@@ -209,26 +224,28 @@ export class Wallet {
     const all_tokens = await this.get_tokens_list()
     let objc_list = []
     all_tokens.forEach((token) => {
-        const content = token.tokenBody.content
-        if (content.length == 5) {
-          if (!objc_list[content[1]]) {
-            objc_list[content[1]] = []
-          }
-          objc_list[content[1]].push(token)
+      const content = token.tokenBody.content
+      if (content.length == 5) {
+        if (token.tokenType = this.objc_type) {
+          objc_list.push(token)
         }
+      }
     })
     return objc_list
   }
 
   async get_sbc_list() {
     const all_tokens = await this.get_tokens_list()
-    let sbc_list = {"all":0, "tokens":[]}
+    let sbc_list = { "all": 0, "tokens": [] }
     all_tokens.forEach((token) => {
-        const content = token.tokenBody.content
-        if (content.length == 1) {
+      const content = token.tokenBody.content
+      if (content.length == 1) {
+        if (token.tokenType = this.sbc_type) {
           sbc_list["all"] += parseInt(content[0])
           sbc_list["tokens"].push(token)
         }
+
+      }
     })
     return sbc_list
   }

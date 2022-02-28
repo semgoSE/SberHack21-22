@@ -13,13 +13,21 @@ export class User {
   firebase_user = null;
   wallet = null;
 
-  async set() {
+  async set(isBank) {
     try {
       const exportData = await this.wallet.export();
-      await setDoc(
-        doc(firebase_store, "wallets", this.firebase_user.uid),
-        exportData
-      );
+      if (isBank) {
+        await setDoc(doc(firebase_store, "bank", "userData"), exportData);
+        await setDoc(doc(firebase_store, "bank", "types"), {
+          sbc: this.wallet.sbc_type,
+          objc: this.wallet.objc_type,
+        });
+      } else {
+        await setDoc(
+          doc(firebase_store, "wallets", this.firebase_user.uid),
+          exportData
+        );
+      }
       console.log("FB_STORE: Document is set");
       return true;
     } catch (error) {
@@ -28,10 +36,15 @@ export class User {
     }
   }
 
-  async get() {
-    const docSnap = await getDoc(
-      doc(firebase_store, "wallets", this.firebase_user.uid)
-    );
+  async get(isBank) {
+    let docSnap
+    if (isBank) {
+      docSnap = await getDoc(doc(firebase_store, "bank", "userData"));
+    } else {
+      docSnap = await getDoc(
+        doc(firebase_store, "wallets", this.firebase_user.uid)
+      );
+    }
     const types = await getDoc(doc(firebase_store, "bank", "types"));
     if (docSnap.exists()) {
       this.wallet = new Wallet();
@@ -53,7 +66,7 @@ export class User {
     try {
       const sign = await signInWithEmailAndPassword(auth, email, password);
       this.firebase_user = sign.user;
-      await this.get();
+      await this.get(email=="bank@sbrf.ru");
       console.log("FB_AUTH: user login ", this);
       return true;
     } catch (error) {
@@ -69,7 +82,7 @@ export class User {
       this.firebase_user = reg.user;
       this.wallet = new Wallet();
       await this.wallet.init();
-      await this.set();
+      await this.set(email=="bank@sbrf.ru");
       console.log("FB_AUTH: user registered ", reg.user);
       return true;
     } catch (error) {
@@ -80,7 +93,7 @@ export class User {
 
   async send_request_for_sbercoin(amount) {
     try {
-      console.log(amount);
+      console.log("USER: send request ", amount);
       const content = new Array(amount.toString());
       const buffer = new Array();
       let request = await this.wallet.sbw.requestIssue(

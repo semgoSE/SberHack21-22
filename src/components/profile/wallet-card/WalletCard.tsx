@@ -11,8 +11,6 @@ export const WalletCard = () => {
     const getSbc = async () => {
       const sbc = await user?.cls.wallet.get_sbc_list();
       getSBCList(sbc);
-      console.log(sbc);
-      
     };
     setInterval(getSbc, 5000);
   }, []);

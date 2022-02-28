@@ -8,6 +8,7 @@ import { Login } from './pages/Login';
 import { Market } from './pages/Market';
 import { Profile } from './pages/Profile';
 import { Registration } from './pages/Registration'
+import { Test } from './pages/Test';
 
 function App() {
   const { user, wallet } = useContext(AccountContext);
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           {!user ?
             <>
+              <Route path="/test" element={<Test />} />
               <Route path="/registration" element={<Registration />} />
               <Route path="*" element={<Login />} />
             </> :

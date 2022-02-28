@@ -15,9 +15,6 @@ interface UserMenuPoput {
 const UserNotifacations = ({ user }: UserMenuPoput) => {
   const popupState = usePopupState({ variant: 'popover', popupId: 'user-menu' })
 
-  React.useEffect(() => {
-    console.log(popupState);
-  }, [popupState])
 
   return (
     <div>

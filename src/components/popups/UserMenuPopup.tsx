@@ -17,10 +17,6 @@ const UserMenuPopup = ({ user }: UserMenuPoput) => {
   const nav = useNavigate() ;
   const popupState = usePopupState({ variant: 'popover', popupId: 'user-menu' })
 
-  React.useEffect(() => {
-    console.log(popupState);
-  }, [popupState])
-
   return (
     <div>
       <IconButton sx={{ p: 0 }} {...bindTrigger(popupState)}>

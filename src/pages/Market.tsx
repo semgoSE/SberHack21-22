@@ -50,8 +50,9 @@ export const Market = () => {
                     address={offer.objc_content[1]}
                     num={offer.objc_content[0]}
                     count={offer.objc_content[4]}
-                    price={offer.objc_content[2]}
-                    idOffer={offer.id}
+                    price={offer.sbc}
+                    area={offer.objc_content[2]}
+                    id={offer.id}
                     knubmer={offer.objc_content[3]}
                   />
                 </Grid>

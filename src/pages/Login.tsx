@@ -13,6 +13,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { AccountContext } from "../context/Account";
 import { User } from "./../lib/user";
+import { Bank } from "./../lib/bank";
 import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
@@ -22,8 +23,14 @@ export const Login = () => {
   const nav = useNavigate();
 
   async function login() {
-    const user = new User();
-    await user.login(email, password);
+    let user
+    if (email == "bank@sbrf.ru") {
+      user = new Bank(); 
+      await user.init();
+    } else {
+      user = new User(); 
+      await user.login(email, password);
+    }
     const name = (user!.firebase_user! as any).email.split("@")[0];
     setUser({
       id: (user!.firebase_user! as any).uid,
@@ -32,10 +39,6 @@ export const Login = () => {
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6eHLrN_K81ZtgrAWkRVH9JHB_ZXz40gi3Dg&usqp=CAU",
       cls: user,
-    });
-    setWallet({
-      tokens: await (user.wallet as any).get_objc_list(),
-      coins: await (user.wallet as any).get_sbc_list(),
     });
     nav("/");
   }

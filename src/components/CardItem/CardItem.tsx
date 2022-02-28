@@ -1,8 +1,9 @@
-import React from "react";
-import { Box, Button, Paper, Typography } from "@mui/material";
+import React, { useState, useContext } from "react";
+import { Box, Button, Paper, Typography, TextField } from "@mui/material";
 import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
-
+import { putOffer } from "./../../lib/market";
+import { AccountContext } from "./../../context/Account";
 const settings = {
   dots: true,
   infinite: true,
@@ -16,14 +17,43 @@ interface CardItemProps {
   address: string;
   num: number;
   count: number;
+  area: number;
   price?: number;
-  idOffer?: string;
+  id?: string;
   knubmer: string;
+  token?: any;
 }
 
 export const CardItem = (props: CardItemProps) => {
   const nav = useNavigate();
+  const { user } = useContext(AccountContext);
+  const [price, setPrice] = useState(0);
+  const handlePutOffer = async (obj: any) => {
+    setTimeout(
+      async () =>
+        await putOffer(
+          user?.cls,
+          obj,
+          price,
+          (user?.cls as any).wallet.sbc_type
+        ),
+      1000
+    );
+  };
 
+  const handleBuy = async (obj: any) => {
+    const sbcList = await user?.cls.wallet.sbw.listTokenSupplyCandidates(props.id)
+    if (sbcList) {
+      if (sbcList.length == 0) await user?.cls.send_request_for_sbercoin(props.price)
+      if (sbcList.length > 0) await user?.cls.wallet.sbw.applyForOffer(props.id, sbcList[0]) 
+      else console.error("WALLET: No token for buy");
+      
+    }
+  };
+
+  const handleCloseOffer = async (obj: any) => {
+    await user?.cls.wallet.sbw.closeOffer(obj)
+  };
   return (
     <Paper
       sx={{
@@ -54,17 +84,18 @@ export const CardItem = (props: CardItemProps) => {
         <Typography align="center" component="span" sx={{ fontSize: 22 }}>
           ({props.num}/{props.count}) {props.address}
         </Typography>
-        <Typography align="center" component="span" sx={{ fontSize: 18 }}>
-          {props.price} SBC
-        </Typography>
         {!props.isProfile && (
           <>
+            <Typography align="center" component="span" sx={{ fontSize: 18 }}>
+              {props.price} SBC
+            </Typography>
+
             <Typography align="center" component="span" sx={{ fontSize: 18 }}>
               KNumber: {props.knubmer}
             </Typography>
 
             <Typography align="center" component="span" sx={{ fontSize: 12 }}>
-              ID offer: {props.idOffer}
+              ID: {props.id}
             </Typography>
           </>
         )}
@@ -74,13 +105,47 @@ export const CardItem = (props: CardItemProps) => {
         p={2}
         sx={{ display: "flex", flexDirection: { xs: "column", md: "row" } }}
       >
-        <Button variant="contained">
-          {props.isProfile ? "Продать" : "Купить"}
-        </Button>
-        {props.isProfile && <Button variant="contained" color="error">Уничтожить</Button>}
-        <Button sx={{ marginLeft: 2 }} onClick={() => nav("/item")}>
+        {props.isProfile && (
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="price"
+            label="Price"
+            name="price"
+            autoComplete="price"
+            autoFocus
+            onChange={(event: any) => {
+              setPrice(event.target.value);
+            }}
+          />
+        )}
+        {props.isProfile && (
+          <Button
+            variant="contained"
+            onClick={() => handlePutOffer(props.token)}
+          >
+            Продать
+          </Button>
+        )}
+        {!props.isProfile && (
+          <Button variant="contained" onClick={() => handleBuy(props.token)}>
+            Купить
+          </Button>
+        )}
+        {!props.isProfile && user?.email == "bank@sbrf.ru" && (
+          <Button variant="contained" color="error" onClick={() => handleCloseOffer(props.id)}>
+            Снять
+          </Button>
+        )}
+        {props.isProfile && (
+          <Button variant="contained" color="error">
+            Уничтожить
+          </Button>
+        )}
+        {/* <Button sx={{ marginLeft: 2 }} onClick={() => nav("/item")}>
           Подробнее
-        </Button>
+        </Button> */}
       </Box>
     </Paper>
   );

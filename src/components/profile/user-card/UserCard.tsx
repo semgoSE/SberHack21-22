@@ -11,8 +11,6 @@ export const UserCard = () => {
         const getWallet = async () => {
             const wId = await user?.cls.wallet._get_wallet_id();
             setWalletId(wId);
-            console.log(walletId);
-            console.log(user);
         }
         getWallet()
     },[])
