@@ -14,10 +14,10 @@ interface Wallet {
 }
 
 interface AccountContext {
-    user?: User,
-    wallet?: Wallet,
-    setUser: (account: User) => void,
-    setWallet: (wallet: Wallet) => void,
+    user?: User | null,
+    wallet?: Wallet | null,
+    setUser: (account: User | undefined | null) => void,
+    setWallet: (wallet: Wallet | undefined | null) => void,
 }
 
 export const AccountContext = createContext<AccountContext>({
@@ -35,8 +35,8 @@ interface AccountStateProps {
 
 export const AccountState = ({ children }: AccountStateProps) => {
 
-    const [user, setUser] = useState<User | undefined>();
-    const [wallet, setWallet] = useState<Wallet | undefined>();
+    const [user, setUser] = useState<User | null | undefined>();
+    const [wallet, setWallet] = useState<Wallet | null | undefined>();
 
     const value: AccountContext = {
         user,

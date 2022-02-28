@@ -6,14 +6,16 @@ import {
   bindTrigger,
 } from 'material-ui-popup-state/hooks'
 import { IconButton, ListItemIcon, Avatar, Popover, ListItemText, Box, Typography } from '@mui/material'
-import { Icon28EditOutline, Icon28SettingsOutline, Icon28UserOutline } from "@vkontakte/icons"
+import { Icon28EditOutline, Icon28SettingsOutline, Icon28UserIncomingOutline, Icon28UserOutline } from "@vkontakte/icons"
 import { useNavigate } from 'react-router-dom'
+import { AccountContext } from '../../context/Account'
 
 interface UserMenuPoput {
   user: any
 }
 
 const UserMenuPopup = ({ user }: UserMenuPoput) => {
+  const { setUser, setWallet } = React.useContext(AccountContext);
   const nav = useNavigate() ;
   const popupState = usePopupState({ variant: 'popover', popupId: 'user-menu' })
 
@@ -65,12 +67,16 @@ const UserMenuPopup = ({ user }: UserMenuPoput) => {
               Редактировать
             </ListItemText>
           </MenuItem>
-          <MenuItem onClick={popupState.close}>
+          <MenuItem onClick={() => {
+            setUser(null);
+            setWallet(null);
+            popupState.close();
+          }}>
             <ListItemIcon>
-              <Icon28SettingsOutline />
+              <Icon28UserIncomingOutline />
             </ListItemIcon>
             <ListItemText>
-              Настройки
+              Выйти
             </ListItemText>
           </MenuItem>
         </Box>
