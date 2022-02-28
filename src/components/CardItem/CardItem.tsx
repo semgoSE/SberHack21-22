@@ -22,6 +22,7 @@ interface CardItemProps {
   id?: string;
   knubmer: string;
   token?: any;
+  key?: any;
 }
 
 export const CardItem = (props: CardItemProps) => {
@@ -62,7 +63,9 @@ export const CardItem = (props: CardItemProps) => {
         alignItems: "center",
         overflow: "hidden",
         fontWeight: "bold",
+        marginTop: "30px"
       }}
+      key={props.key}
     >
       <Box
         component="img"

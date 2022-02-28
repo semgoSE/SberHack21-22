@@ -7,8 +7,10 @@ import Button from "@mui/material/Button";
 export const Test = () => {
   const [user, setUser] = useState(new User());
   const [bank, setBank] = useState(new Bank());
-  const [userTokens, setUserTokens] = useState({ all: 0, tokens: [] });
-  const [bankTokens, setBankTokens] = useState([]);
+  const [userSbcTokens, setUserSbcTokens] = useState({ all: 0, tokens: [] });
+  const [bankSbcTokens, setBankSbcTokens] = useState({ all: 0, tokens: [] });
+  const [bankObjTokens, setBankObjTokens] = useState([]);
+  const [userObjTokens, setUserObjTokens] = useState([]);
   const [sberCoinType, setSberCoinType] = useState("0");
   const [objectCoinType, setObjectCoinType] = useState("0");
   const [currentAmount, setCurrentAmount] = useState(0);
@@ -23,12 +25,16 @@ export const Test = () => {
   useEffect(() => {
     const update = async () => {
       if (bank.wallet) {
-        const otokens = await bank.wallet.get_objc_list();
-        if (otokens) setBankTokens(otokens);
+        const obtokens = await bank.wallet.get_objc_list();
+        if (obtokens) setBankObjTokens(obtokens);
+        const sbtokens = await bank.wallet.get_sbc_list();
+        if (sbtokens) setBankSbcTokens(sbtokens);
       }
       if (user.wallet) {
-        const stokens = await user.wallet.get_sbc_list();
-        if (stokens) setUserTokens(stokens);
+        const outokens = await user.wallet.get_objc_list();
+        if (outokens) setUserObjTokens(outokens);
+        const sutokens = await user.wallet.get_sbc_list();
+        if (sutokens) setUserSbcTokens(sutokens);
       }
     }
     setInterval(update, 5000);
@@ -38,9 +44,7 @@ export const Test = () => {
     await bank.init();
     setSberCoinType(bank.wallet.sbc_type);
     setObjectCoinType(bank.wallet.objc_type);
-    const tokens = await bank.wallet.get_objc_list();
-    setBankTokens(tokens);
-    console.log("TEST: Update Bank success", bank, bankTokens);
+    console.log("TEST: Update Bank success", bank);
   };
 
   const handleGetObject = async () => {
@@ -60,9 +64,7 @@ export const Test = () => {
 
   const handleLoginUser = async () => {
     await user.login("test@sbrf.ru", "12345678");
-    const tokens = await user.wallet.get_sbc_list();
-    setUserTokens(tokens);
-    console.log("TEST: User login", user, userTokens);
+    console.log("TEST: User login", user,);
   };
 
   const handleGetSBC = async () => {
@@ -145,14 +147,18 @@ export const Test = () => {
         <Button onClick={handleGetObject}>tokenize object</Button>
         <br />
         <br />
-        Bank tokens: <br />
-        <input
-          type="text"
-          onChange={(e) => {
-            setCurrentAmount(e.target.value);
-          }}
-        />
-        {bankTokens.map((address, i) => {
+        Bank tokens SBC: ({bankSbcTokens["all"]}): <br />
+        <ul>
+          {bankSbcTokens["tokens"].map((token, i) => (
+            <li key={i}>
+              ID: {token.tokenBody.tokenId}, content: {token.tokenBody.content}
+            </li>
+          ))}
+        </ul>
+        <br />
+        <br />
+        Bank tokens ObjC: <br />
+        {bankObjTokens.map((address, i) => {
           const content = address.tokenBody.content;
           return (
             <div>
@@ -191,14 +197,35 @@ export const Test = () => {
         <Button onClick={handleGetSBC}>get SberCoin</Button>
         <br />
         <br />
-        User tokens ({userTokens["all"]}): <br />
+        <br />
+        <br />
+        User tokens SBC: ({userSbcTokens["all"]}): <br />
         <ul>
-          {userTokens["tokens"].map((token, i) => (
+          {userSbcTokens["tokens"].map((token, i) => (
             <li key={i}>
               ID: {token.tokenBody.tokenId}, content: {token.tokenBody.content}
             </li>
           ))}
         </ul>
+        <br />
+        <br />
+        User tokens ObjC: <br />
+        {userObjTokens.map((address, i) => {
+          const content = address.tokenBody.content;
+          return (
+            <div>
+              <li key={i}>
+                Street : {content[1]} <br />
+                Area : {content[2]} <br />
+                KNumber : {content[3]} <br />
+                {address.tokenBody.tokenId}<br />
+                <Button onClick={() => handlePutOffer(address)}>
+                  putOffer
+                </Button>
+              </li>
+            </div>
+          );
+        })}
         <Button onClick={handleUpdateOffers}>Update offers</Button> <br />
         Offers:
         <ul>

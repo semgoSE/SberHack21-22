@@ -26,7 +26,7 @@ export const Market = () => {
       setOffers(lOffers);
     };
     setInterval(getOffers, 5000);
-  },[]);
+  }, []);
 
   return (
     <Grid component="main" sx={{ height: "100vh" }}>
@@ -42,10 +42,11 @@ export const Market = () => {
           }}
         >
           {offers &&
-            offers.map((offer: any) => {
+            offers.map((offer: any, i: number) => {
               return (
                 <Grid item>
                   <CardItem
+                    key={i}
                     isProfile={false}
                     address={offer.objc_content[1]}
                     num={offer.objc_content[0]}

@@ -28,7 +28,6 @@ export const Profile = () => {
   const [knumber, setKNumber] = useState("");
   const [count, setCount] = useState("");
   const handleGetObject = async () => {
-    console.log(user);
     let req = await user?.cls.create_object_tokens(
       address,
       area,
@@ -39,10 +38,10 @@ export const Profile = () => {
   };
   useEffect(() => {
     const getObjcList = async () => {
-        const olist = await user?.cls.wallet.get_objc_list()
-        if (olist) {
-            setObjcList([...olist]);
-        }
+      const olist = await user?.cls.wallet.get_objc_list();
+      if (olist) {
+        setObjcList([...olist]);
+      }
     };
     setInterval(getObjcList, 5000);
   }, []);
@@ -76,31 +75,6 @@ export const Profile = () => {
                         </Paper>
                     </Grid> */}
         </Grid>
-      </Box>
-      <Typography pl={4} variant="h2">
-        Ваши активы
-      </Typography>
-      <Box p={4} sx={{ display: "flex", maxWidth: 800 }}>
-        <List>
-          {objcList &&
-              (objcList as any).map((tokenAddress: any, j: number) => {
-                const content = tokenAddress.tokenBody.content;
-                console.log();
-                return (
-                <>
-                  <CardItem
-                    isProfile={true}
-                    address={content[1]}
-                    area={parseInt(content[2])}
-                    knubmer={content[3]}
-                    num={parseInt(content[0])}
-                    count={parseInt(content[4])}
-                    id={tokenAddress.tokenBody.tokenId}
-                    token={tokenAddress}
-                  /></>
-                );
-            })}
-        </List>
       </Box>
       {user?.name === "bank" && (
         <div>
@@ -163,6 +137,33 @@ export const Profile = () => {
           </Box>
         </div>
       )}
+      <Typography pl={4} variant="h2">
+        Ваши активы
+      </Typography>
+      <Box p={4} sx={{ display: "flex", maxWidth: 800 }}>
+        <List>
+          {objcList &&
+            (objcList as any).map((tokenAddress: any, j: number) => {
+              const content = tokenAddress.tokenBody.content;
+              return (
+                <>
+                  <CardItem
+                    key={tokenAddress.tokenBody.tokenId}
+                    isProfile={true}
+                    address={content[1]}
+                    area={parseInt(content[2])}
+                    knubmer={content[3]}
+                    num={parseInt(content[0])}
+                    count={parseInt(content[4])}
+                    id={tokenAddress.tokenBody.tokenId}
+                    token={tokenAddress}
+                  />
+                </>
+              );
+            })}
+        </List>
+      </Box>
+      
     </Box>
   );
 };
